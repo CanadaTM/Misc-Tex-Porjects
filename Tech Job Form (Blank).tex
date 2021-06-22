@@ -1,0 +1,780 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tipa}
+\usepackage{multirow}
+\usepackage[object=vectorian]{pgfornament}
+
+\newcommand{\sectionlinetwo}[2]{%
+    \nointerlineskip \vspace{-0.5\baselineskip}\hspace{\fill}
+    {\resizebox{0.5\linewidth}{1.2ex}
+        {\pgfornament[color = #1]{#2}
+        }}%
+    \hspace{\fill}
+    \par\nointerlineskip \vspace{.5\baselineskip}
+}
+\newcommand{\bWidth}{1}
+\newcommand\blfootnote[1]{%
+    \begingroup
+    \renewcommand\thefootnote{}\footnote{#1}%
+    \addtocounter{footnote}{-1}%
+    \endgroup
+}
+\newlength{\sectionSpace}
+\setlength{\sectionSpace}{20px}
+
+\definecolor{hyperlinkblue}{RGB}{49,62,130}
+\definecolor{jumpred}{RGB}{211,11,40}
+\definecolor{textfieldbg}{rgb}{.85,.85,.85}
+\definecolor{borderorange}{RGB}{255,189,168}
+\definecolor{hintgray}{RGB}{150,150,150}
+\definecolor{hinthighlight}{RGB}{255,150,150}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=jumpred,
+    urlcolor=hyperlinkblue,
+    linktoc=all,
+    pdftitle={Tech Job Form},
+    bookmarks=true,
+}
+\def\LayoutCheckField#1#2{#2 #1}
+
+\begin{document}
+
+\begin{titlepage}
+    \addtocontents{toc}{\protect\hypertarget{toc}{}}
+    \tableofcontents
+    \vspace{3.5cm}
+
+    \section*{General Information\blfootnote{\hyperlink{toc}{Back to Top}}}
+    \rule[10pt]{\textwidth}{2pt}
+    \addcontentsline{toc}{section}{General Information}
+    \label{sec:General}
+
+    \noindent
+    \vspace{2px}
+    \begin{Form}
+        \textbf{\emph{Customer's Name:}}\newline
+        \TextField[
+            name = customer.name,
+            borderwidth = \bWidth,
+            bordercolor = borderorange,
+            backgroundcolor = textfieldbg,
+            width = \textwidth,
+        ]{}
+
+        \vspace{\sectionSpace}
+        \noindent
+        \textbf{\emph{Account Number:}}
+        \TextField[
+            name = account.number,
+            borderwidth = \bWidth,
+            bordercolor = borderorange,
+            backgroundcolor = textfieldbg,
+            width = 6.5em,
+        ]{}
+        \ChoiceMenu[
+            name = account.type,
+            borderwidth = \bWidth,
+            bordercolor = borderorange,
+            backgroundcolor = textfieldbg,
+            radio = true,
+        ]{\textbf{\emph{Type:}}}{Residential, Commercial}
+
+        \vspace{\sectionSpace}
+        \textbf{\emph{Systems:}}
+
+        \vspace{3px}
+        \noindent
+        \makeatletter
+        \@for%
+        \system:={Security System,Fire System,Camera System,Access System}%
+        \do{%
+            \vspace{3px}%
+            \CheckBox[%
+                name = \system,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg%
+            ]{ \system}%
+            \newline%
+        }
+        \makeatother
+    \end{Form}
+\end{titlepage}
+
+\section*{Security System\blfootnote{\hyperlink{toc}{Back to Top}}}
+\rule[10pt]{\textwidth}{2pt}
+\addcontentsline{toc}{section}{Security System}
+\label{sec:Security}
+
+\noindent
+\begin{Form}
+    \TextField[
+        name = security.paneltype,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = 7em,
+        height = .8\baselineskip
+    ]{\textbf{\emph{Panel Type:}}}
+
+    \vspace{\sectionSpace}
+    \textbf{\emph{Location:}}\newline
+    \vspace{2px}
+    \TextField[
+        name = security.panellocation,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = \textwidth,
+        height = .8\baselineskip
+    ]{}
+
+    \textbf{\emph{Transformer Location:}}\newline
+    \vspace{2px}
+    \TextField[
+        name = security.transformerlocation,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = \textwidth,
+        height = .8\baselineskip
+    ]{}
+
+    \vspace{\sectionSpace}
+    \emph{\textbf{Cell Unit}}
+
+    \vspace{2px}
+    \noindent
+    \TextField[
+        name = security.cellid,
+        maxlen = 7,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = 4em,
+        height = .8\baselineskip
+    ]{\emph{\textbf{I.D:}}}
+
+    \vspace{5px}
+    \underline{Or}
+
+    \vspace{5px}
+    \noindent
+    \makeatletter
+    \@for%
+    \macbox:={1,2,3,4,5,6}%
+    \do{%
+        \ifnum\macbox=1%
+            \TextField[%
+                name = security.macbox\macbox,%
+                maxlen = 2,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 2em,%
+                height = .8\baselineskip%
+            ]{\emph{\textbf{M.A.C:}}}
+        \else%
+            \TextField[%
+                name = security.macbox\macbox,%
+                maxlen = 2,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 2em,%
+                height = .8\baselineskip%
+            ]{\emph{\textbf{:}}}
+        \fi%
+    }%
+    \makeatother
+    \hspace{.1em}
+    \TextField[
+        name = security.crc,
+        maxlen = 4,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = 7.5em,
+        height = .8\baselineskip
+    ]{\textbf{\emph{C.R.C:}}}
+
+    \vspace{5px}
+    \underline{And maybe}
+
+    \vspace{5px}
+    \noindent
+    \TextField[%
+        name = security.honeywellcity,%
+        maxlen = 2,%
+        borderwidth = \bWidth,%
+        bordercolor = borderorange,%
+        backgroundcolor = textfieldbg,%
+        width = 2em,%
+        height = .8\baselineskip%
+    ]{\emph{\textbf{City:}}}
+    \emph{\textbf{\textemdash}}
+    \TextField[%
+        name = security.honeywellcsid,%
+        maxlen = 2,%
+        borderwidth = \bWidth,%
+        bordercolor = borderorange,%
+        backgroundcolor = textfieldbg,%
+        width = 2em,%
+        height = .8\baselineskip%
+    ]{\emph{\textbf{CSID:}}}
+    \emph{\textbf{\textemdash}}
+    \TextField[%
+        name = security.honeywellaccount,%
+        maxlen = 4,%
+        borderwidth = \bWidth,%
+        bordercolor = borderorange,%
+        backgroundcolor = textfieldbg,%
+        width = 3em,%
+        height = .8\baselineskip%
+    ]{\emph{\textbf{Account:}}}
+
+    \vspace{\sectionSpace}
+    \emph{\textbf{Miscellaneous Notes:}}\vspace{3px}\newline
+    \TextField[
+        name = security.miscnotes,
+        multiline = true,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = \textwidth,
+        height = 13\baselineskip
+    ]{}
+\end{Form}
+\pagebreak
+\section*{Fire System\blfootnote{\hyperlink{toc}{Back to Top}}}
+\rule[10pt]{\textwidth}{2pt}
+\addcontentsline{toc}{section}{Fire System}
+\label{sec:Fire}
+
+\noindent
+\begin{Form}
+    \TextField[
+        name = fire.paneltype,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = 7em,
+        height = .8\baselineskip
+    ]{\textbf{\emph{Panel Type:}}}
+
+    \vspace{\sectionSpace}
+    \textbf{\emph{Location:}}\newline
+    \vspace{2px}
+    \TextField[
+        name = fire.panellocation,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = \textwidth,
+        height = .8\baselineskip
+    ]{}
+
+    \noindent
+    \vspace{\sectionSpace}
+    \TextField[
+        name = fire.breakernumber,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = 2.2em,
+        height = .8\baselineskip
+    ]{\textbf{\emph{Breaker Number:}}}
+
+    \noindent
+    \vspace{3px}
+    \makeatletter
+    \@for%
+    \ipbox:={1,2,3,4}%
+    \do{%
+        \ifnum\ipbox=1%
+            \TextField[%
+                name = fire.ipbox\ipbox,%
+                maxlen = 3,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 2.2em,%
+                height = .7\baselineskip%
+            ]{\emph{\textbf{IPv4 Address}}}
+        \else%
+            \TextField[%
+                name = fire.ipbox\ipbox,%
+                maxlen = 3,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 2.2em,%
+                height = .7\baselineskip%
+            ]{\emph{\textbf{.}}}
+        \fi%
+    }%
+    \makeatother
+
+    \noindent
+    \vspace{\sectionSpace}
+    \makeatletter
+    \@for%
+    \macbox:={1,2,3,4,5,6}%
+    \do{%
+        \ifnum\macbox=1%
+            \TextField[%
+                name = fire.macbox\macbox,%
+                maxlen = 2,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 2em,%
+                height = .8\baselineskip%
+            ]{\emph{\textbf{M.A.C:}}}
+        \else%
+            \TextField[%
+                name = fire.macbox\macbox,%
+                maxlen = 2,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 2em,%
+                height = .8\baselineskip%
+            ]{\emph{\textbf{:}}}
+        \fi%
+    }%
+    \makeatother
+    \hspace{.1em}
+    \TextField[
+        name = fire.crc,
+        % maxlen = 4,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = 7.5em,
+        height = .8\baselineskip
+    ]{\textbf{\emph{C.R.C:}}}
+
+    \noindent
+    \makeatletter
+    \@for%
+    \psulocation:={1,2,3,4}%
+    \do{%
+        \vspace{3px}%
+        \emph{\textbf{Power Supply \#\psulocation\ Location:}}%
+        \newline%
+        \TextField[%
+            name = fire.psulocation\psulocation,%
+            borderwidth = \bWidth,%
+            bordercolor = borderorange,%
+            backgroundcolor = textfieldbg,%
+            width = \textwidth,%
+            height = .8\baselineskip%
+        ]{}%
+        \ifnum\psulocation<4{%
+            \newline%
+        }%
+        \fi%
+    }%
+    \makeatother
+
+    \vspace{\sectionSpace}
+    \emph{\textbf{Miscellaneous Notes:}}\vspace{3px}\newline
+    \TextField[
+        name = fire.miscnotes,
+        multiline = true,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = \textwidth,
+        height = 9\baselineskip
+    ]{}
+\end{Form}
+\pagebreak
+\section*{Camera System\blfootnote{\hyperlink{toc}{Back to Top}}}
+\rule[10pt]{\textwidth}{2pt}
+\addcontentsline{toc}{section}{Camera System}
+\label{sec:Camera}
+
+\noindent
+\begin{Form}
+    \TextField[
+        name = camera.paneltype,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = 12em,
+        height = .8\baselineskip
+    ]{\textbf{\emph{Recorder Type:}}}
+
+    \vspace{\sectionSpace}
+    \textbf{\emph{Location:}}\newline
+    \vspace{2px}
+    \TextField[
+        name = camera.panellocation,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = \textwidth,
+        height = .8\baselineskip
+    ]{}
+
+    \vspace{3px}
+    \footnotesize
+    \textcolor{hintgray}{
+        (Put in the box below the last 9 characters (could be numbers or letters) that
+        come before the ``WCVU" at the end of the recorder's full serial number. An
+        example with the correct data highlighted in red will be below.)
+        \begin{center}0820160211AAWR\textcolor{hinthighlight}{123456789}WCVU\end{center}
+    }
+
+    \normalsize
+    \noindent
+    \TextField[
+        name = camera.serialnumber,
+        maxlen = 9,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = 5em,
+        height = .8\baselineskip
+    ]{\emph{\textbf{Serial Number:}}}
+
+    \vspace{\sectionSpace}
+    \noindent
+    \makeatletter
+    \@for%
+    \ipbox:={1,2,3,4}%
+    \do{%
+        \ifnum\ipbox=1%
+            \TextField[%
+                name = camera.wanipbox\ipbox,%
+                maxlen = 3,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 2.2em,%
+                height = .7\baselineskip%
+            ]{\emph{\textbf{Public IPv4 Address}}}
+        \else%
+            \TextField[%
+                name = camera.wanipbox\ipbox,%
+                maxlen = 3,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 2.2em,%
+                height = .7\baselineskip%
+            ]{\emph{\textbf{.}}}
+        \fi%
+    }%
+    \makeatother
+
+    \vspace{3px}
+    \noindent
+    \makeatletter
+    \@for%
+    \ipbox:={1,2,3,4}%
+    \do{%
+        \ifnum\ipbox=1%
+            \TextField[%
+                name = camera.lanipbox\ipbox,%
+                maxlen = 3,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 2.2em,%
+                height = .7\baselineskip%
+            ]{\emph{\textbf{Pravate IPv4 Address}}}
+        \else%
+            \TextField[%
+                name = camera.lanipbox\ipbox,%
+                maxlen = 3,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 2.2em,%
+                height = .7\baselineskip%
+            ]{\emph{\textbf{.}}}
+        \fi%
+    }%
+    \makeatother
+
+    \vspace{\sectionSpace}
+    \noindent
+    \makeatletter
+    \@for%
+    \camsys:={1,2,3}%
+    \do{%
+    \ifnum\camsys=1{%
+        \emph{\textbf{Admin Login:}}%
+        }%
+        \else{%
+            \emph{\textbf{User \#\camsys\ Login:}}%
+        }%
+    \fi%
+    \vspace{1px}%
+    \newline%
+    \ifnum\camsys<3{%
+        \vspace{5px}%
+    }%
+    \fi%
+    \ifnum\camsys=1{%
+        \emph{\textbf{User:}}\hspace{4.35em}admin%
+        \hspace{4.35em}%
+        }%
+        \else{%
+            \TextField[%
+                name = camera.username\camsys,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 10em,%
+                height = .8\baselineskip%
+            ]%
+            {\emph{\textbf{User:}}}%
+            \hspace{1em}%
+        }%
+    \fi%
+    \TextField[%
+        name = camera.password\camsys,%
+        borderwidth = \bWidth,%
+        bordercolor = borderorange,%
+        backgroundcolor = textfieldbg,%
+        width = 10em,%
+        height = .8\baselineskip%
+    ]%
+    {\emph{\textbf{Pass:}}}%
+    \newline%
+    }%
+    \makeatother
+
+    \vspace{\sectionSpace}
+    \emph{\textbf{Ports:}}
+    \begin{center}
+    \makeatletter
+    \@for%
+    \ports:={1,2,3,4}%
+    \do{%
+    \TextField[%
+    name = camera.port\ports,%
+    maxlen = 5,%
+    borderwidth = \bWidth,%
+    bordercolor = borderorange,%
+    backgroundcolor = textfieldbg,%
+    width = 3.2em,%
+    height = .8\baselineskip%
+    ]{\emph{\textbf{%
+    \ifnum\ports=1{%
+        HTTP:%
+        }%
+    \else{%
+        \ifnum\ports=2{%
+            \hspace{.5em}%
+            RTSP:%
+            }%
+        \else{%
+            \ifnum\ports=3{%
+                \hspace{.5em}%
+                Server:%
+            }%
+            \else{%
+                \hspace{.5em}%
+                HTTPS:%
+            }%
+            \fi%
+        }%
+        \fi%
+    }%
+    \fi%
+    }}}}%
+    \end{center}
+    \makeatother
+
+    \vspace{\sectionSpace}
+    \emph{\textbf{Miscellaneous Notes:}}\vspace{3px}\newline
+    \TextField[
+        name = camera.miscnotes,
+        multiline = true,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = \textwidth,
+        height = 2\baselineskip
+    ]{}
+\end{Form}
+\pagebreak
+\section*{Access System\blfootnote{\hyperlink{toc}{Back to Top}}}
+\rule[10pt]{\textwidth}{2pt}
+\addcontentsline{toc}{section}{Access System}
+\label{sec:Access}
+
+\noindent
+\begin{Form}
+    \TextField[
+        name = access.paneltype,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = 10em,
+        height = .8\baselineskip
+    ]{\textbf{\emph{Panel Type:}}}
+    \TextField[
+        name = access.panelid,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = 10em,
+        height = .8\baselineskip
+    ]{\textbf{\emph{Panel ID:}}}
+
+    \vspace{\sectionSpace}
+    \textbf{\emph{Location:}}\newline
+    \vspace{2px}
+    \TextField[
+        name = access.panellocation,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = \textwidth,
+        height = .8\baselineskip
+    ]{}
+
+    \vspace{\sectionSpace}
+    \noindent
+    \makeatletter
+    \@for%
+    \macbox:={1,2,3,4,5,6}%
+    \do{%
+        \ifnum\macbox=1%
+            \TextField[%
+                name = access.macbox\macbox,%
+                maxlen = 2,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 2em,%
+                height = .8\baselineskip%
+            ]{\emph{\textbf{M.A.C:}}}
+        \else%
+            \TextField[%
+                name = access.macbox\macbox,%
+                maxlen = 2,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 2em,%
+                height = .8\baselineskip%
+            ]{\emph{\textbf{:}}}
+        \fi%
+    }%
+    \makeatother
+
+    \noindent
+    \vspace{3px}
+    \makeatletter
+    \@for%
+    \ipbox:={1,2,3,4}%
+    \do{%
+        \ifnum\ipbox=1%
+            \TextField[%
+                name = access.ipbox\ipbox,%
+                maxlen = 3,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 2.2em,%
+                height = .7\baselineskip%
+            ]{\emph{\textbf{IPv4 Address}}}
+        \else%
+            \TextField[%
+                name = access.ipbox\ipbox,%
+                maxlen = 3,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 2.2em,%
+                height = .7\baselineskip%
+            ]{\emph{\textbf{.}}}
+        \fi%
+    }%
+    \makeatother
+
+    \vspace{\sectionSpace}
+    \noindent
+    \TextField[
+        name = access.siteid,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = 6em,
+        height = .8\baselineskip
+    ]{\textbf{\emph{Site ID:}}}
+
+    \vspace{5px}
+    \noindent
+    \makeatletter
+    \@for%
+    \camsys:={1,2,3}%
+    \do{%
+    \ifnum\camsys=1{%
+        \emph{\textbf{Keyscan Login:}}%
+        }%
+        \else{%
+            \emph{\textbf{User \#\camsys\ Login:}}%
+        }%
+    \fi%
+    \vspace{1px}%
+    \newline%
+    \ifnum\camsys<3{%
+        \vspace{5px}%
+    }%
+    \fi%
+    \ifnum\camsys=1{%
+        \emph{\textbf{User:}}\hspace{3.25em}KEYSCAN%
+        \hspace{3.25em}%
+        }%
+        \else{%
+            \TextField[%
+                name = access.username\camsys,%
+                borderwidth = \bWidth,%
+                bordercolor = borderorange,%
+                backgroundcolor = textfieldbg,%
+                width = 10em,%
+                height = .8\baselineskip%
+            ]%
+            {\emph{\textbf{User:}}}%
+            \hspace{1em}%
+        }%
+    \fi%
+    \TextField[%
+        name = access.password\camsys,%
+        borderwidth = \bWidth,%
+        bordercolor = borderorange,%
+        backgroundcolor = textfieldbg,%
+        width = 10em,%
+        height = .8\baselineskip%
+    ]%
+    {\emph{\textbf{Pass:}}}%
+    \newline%
+    }%
+    \makeatother
+
+    \vspace{\sectionSpace}
+    \emph{\textbf{Miscellaneous Notes:}}\vspace{3px}\newline
+    \TextField[
+        name = access.miscnotes,
+        multiline = true,
+        borderwidth = \bWidth,
+        bordercolor = borderorange,
+        backgroundcolor = textfieldbg,
+        width = \textwidth,
+        height = 10\baselineskip
+    ]{}
+\end{Form}
+\end{document}
