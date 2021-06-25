@@ -365,21 +365,21 @@
     \@for%
     \psulocation:={1,2,3,4}%
     \do{%
-        \vspace{3px}%
-        \emph{\textbf{Power Supply \#\psulocation\ Location:}}%
+    \vspace{3px}%
+    \emph{\textbf{Power Supply \#\psulocation\ Location:}}%
+    \newline%
+    \TextField[%
+        name = fire.psulocation\psulocation,%
+        borderwidth = \bWidth,%
+        bordercolor = borderorange,%
+        backgroundcolor = textfieldbg,%
+        width = \textwidth,%
+        height = .8\baselineskip%
+    ]{}%
+    \ifnum\psulocation<4{%
         \newline%
-        \TextField[%
-            name = fire.psulocation\psulocation,%
-            borderwidth = \bWidth,%
-            bordercolor = borderorange,%
-            backgroundcolor = textfieldbg,%
-            width = \textwidth,%
-            height = .8\baselineskip%
-        ]{}%
-        \ifnum\psulocation<4{%
-            \newline%
         }%
-        \fi%
+    \fi%
     }%
     \makeatother
 
@@ -522,7 +522,7 @@
     \newline%
     \ifnum\camsys<3{%
         \vspace{5px}%
-    }%
+        }%
     \fi%
     \ifnum\camsys=1{%
         \emph{\textbf{User:}}\hspace{4.35em}admin%
@@ -557,42 +557,42 @@
     \vspace{\sectionSpace}
     \emph{\textbf{Ports:}}
     \begin{center}
-    \makeatletter
-    \@for%
-    \ports:={1,2,3,4}%
-    \do{%
-    \TextField[%
-    name = camera.port\ports,%
-    maxlen = 5,%
-    borderwidth = \bWidth,%
-    bordercolor = borderorange,%
-    backgroundcolor = textfieldbg,%
-    width = 3.2em,%
-    height = .8\baselineskip%
-    ]{\emph{\textbf{%
-    \ifnum\ports=1{%
-        HTTP:%
-        }%
-    \else{%
-        \ifnum\ports=2{%
-            \hspace{.5em}%
-            RTSP:%
+        \makeatletter
+        \@for%
+        \ports:={1,2,3,4}%
+        \do{%
+        \TextField[%
+        name = camera.port\ports,%
+        maxlen = 5,%
+        borderwidth = \bWidth,%
+        bordercolor = borderorange,%
+        backgroundcolor = textfieldbg,%
+        width = 3.2em,%
+        height = .8\baselineskip%
+        ]{\emph{\textbf{%
+        \ifnum\ports=1{%
+            HTTP:%
             }%
         \else{%
-            \ifnum\ports=3{%
-                \hspace{.5em}%
-                Server:%
+                \ifnum\ports=2{%
+                    \hspace{.5em}%
+                    RTSP:%
+                    }%
+                \else{%
+                        \ifnum\ports=3{%
+                            \hspace{.5em}%
+                            Server:%
+                            }%
+                            \else{%
+                                \hspace{.5em}%
+                                HTTPS:%
+                            }%
+                        \fi%
+                    }%
+                \fi%
             }%
-            \else{%
-                \hspace{.5em}%
-                HTTPS:%
-            }%
-            \fi%
-        }%
         \fi%
-    }%
-    \fi%
-    }}}}%
+        }}}}%
     \end{center}
     \makeatother
 
@@ -609,51 +609,66 @@
     ]{}
 \end{Form}
 \pagebreak
-\section*{Access System\blfootnote{\hyperlink{toc}{Back to Top}}}
+\section*{Access System}
 \rule[10pt]{\textwidth}{2pt}
 \addcontentsline{toc}{section}{Access System}
 \label{sec:Access}
 
 \noindent
 \begin{Form}
-    \TextField[
-        name = access.paneltype,
-        borderwidth = \bWidth,
-        bordercolor = borderorange,
-        backgroundcolor = textfieldbg,
-        width = 10em,
-        height = .8\baselineskip
-    ]{\textbf{\emph{Panel Type:}}}
-    \TextField[
-        name = access.panelid,
-        borderwidth = \bWidth,
-        bordercolor = borderorange,
-        backgroundcolor = textfieldbg,
-        width = 10em,
-        height = .8\baselineskip
-    ]{\textbf{\emph{Panel ID:}}}
-
-    \vspace{\sectionSpace}
-    \textbf{\emph{Location:}}\newline
-    \vspace{2px}
-    \TextField[
-        name = access.panellocation,
-        borderwidth = \bWidth,
-        bordercolor = borderorange,
-        backgroundcolor = textfieldbg,
-        width = \textwidth,
-        height = .8\baselineskip
-    ]{}
-
-    \vspace{\sectionSpace}
-    \noindent
     \makeatletter
+    \@for%
+    \controller:={1,2,3,4,5}%
+    \do{%
+    \vspace{3px}%
+    \TextField[%
+        name = access.paneltype\controller,%
+        borderwidth = \bWidth,%
+        bordercolor = borderorange,%
+        backgroundcolor = textfieldbg,%
+        width = 9em,%
+        height = .8\baselineskip%
+    ]{\textbf{\emph{Panel \#\controller\ Type:}}}%
+    \hspace{1em}%
+    \TextField[%
+        name = access.panelid\controller,%
+        borderwidth = \bWidth,%
+        bordercolor = borderorange,%
+        backgroundcolor = textfieldbg,%
+        width = 9em,%
+        height = .8\baselineskip%
+    ]{\textbf{\emph{Panel ID:}}}\newline%
+    \vspace{5px}%
+    \TextField[%
+        name = access.panellocation\controller,%
+        borderwidth = \bWidth,%
+        bordercolor = borderorange,%
+        backgroundcolor = textfieldbg,%
+        width = 27.84em,%
+        height = .8\baselineskip%
+    ]{\textbf{\emph{Location:}}}\newline%
+    \@for%
+    \door:={1,2,3,4}%
+    \do{%
+    \vspace{3px}%
+    \TextField[%
+        name = access.panel\controller.\door,%
+        borderwidth = \bWidth,%
+        bordercolor = borderorange,%
+        backgroundcolor = textfieldbg,%
+        width = 22.9em,%
+        height = .8\baselineskip%
+    ]{\emph{\textbf{Door \#\door\ Location:}}}%
+    \ifnum\door=4{\vspace{5px}}%
+    \fi%
+    \newline%
+    }%
     \@for%
     \macbox:={1,2,3,4,5,6}%
     \do{%
         \ifnum\macbox=1%
             \TextField[%
-                name = access.macbox\macbox,%
+                name = access.panel\controller.macbox\macbox,%
                 maxlen = 2,%
                 borderwidth = \bWidth,%
                 bordercolor = borderorange,%
@@ -663,7 +678,7 @@
             ]{\emph{\textbf{M.A.C:}}}
         \else%
             \TextField[%
-                name = access.macbox\macbox,%
+                name = access.panel\controller.macbox\macbox,%
                 maxlen = 2,%
                 borderwidth = \bWidth,%
                 bordercolor = borderorange,%
@@ -673,17 +688,13 @@
             ]{\emph{\textbf{:}}}
         \fi%
     }%
-    \makeatother
-
-    \noindent
-    \vspace{3px}
-    \makeatletter
+    \newline%
     \@for%
     \ipbox:={1,2,3,4}%
     \do{%
         \ifnum\ipbox=1%
             \TextField[%
-                name = access.ipbox\ipbox,%
+                name = access.panel\controller.ipbox\ipbox,%
                 maxlen = 3,%
                 borderwidth = \bWidth,%
                 bordercolor = borderorange,%
@@ -693,7 +704,7 @@
             ]{\emph{\textbf{IPv4 Address}}}
         \else%
             \TextField[%
-                name = access.ipbox\ipbox,%
+                name = access.panel\controller.ipbox\ipbox,%
                 maxlen = 3,%
                 borderwidth = \bWidth,%
                 bordercolor = borderorange,%
@@ -703,20 +714,17 @@
             ]{\emph{\textbf{.}}}
         \fi%
     }%
+    \ifnum\controller=5{%
+        \newline%
+        }%
+        \else{%
+            \vspace{\sectionSpace}\newline%
+        }%
+    \fi%
+    }%
     \makeatother
 
     \vspace{\sectionSpace}
-    \noindent
-    \TextField[
-        name = access.siteid,
-        borderwidth = \bWidth,
-        bordercolor = borderorange,
-        backgroundcolor = textfieldbg,
-        width = 6em,
-        height = .8\baselineskip
-    ]{\textbf{\emph{Site ID:}}}
-
-    \vspace{5px}
     \noindent
     \makeatletter
     \@for%
@@ -733,7 +741,7 @@
     \newline%
     \ifnum\camsys<3{%
         \vspace{5px}%
-    }%
+        }%
     \fi%
     \ifnum\camsys=1{%
         \emph{\textbf{User:}}\hspace{3.25em}KEYSCAN%
@@ -764,17 +772,18 @@
     \newline%
     }%
     \makeatother
+    \vspace{1em}
 
-    \vspace{\sectionSpace}
-    \emph{\textbf{Miscellaneous Notes:}}\vspace{3px}\newline
+    \blfootnote{\hyperlink{toc}{Back to Top}}
+    \emph{\textbf{Miscellaneous Panel Notes:}}\vspace{3px}\newline
     \TextField[
-        name = access.miscnotes,
+        name = access.miscpanelnotes,
         multiline = true,
         borderwidth = \bWidth,
         bordercolor = borderorange,
         backgroundcolor = textfieldbg,
         width = \textwidth,
-        height = 10\baselineskip
+        height = 3\baselineskip
     ]{}
 \end{Form}
 \end{document}
