@@ -432,20 +432,30 @@
         example with the correct data highlighted in red will be below.)
         \begin{center}0820160211AAWR\textcolor{hinthighlight}{123456789}WCVU\end{center}
     }
-
     \normalsize
-    \noindent
-    \TextField[
-        name = camera.serialnumber,
-        maxlen = 9,
-        borderwidth = \bWidth,
-        bordercolor = borderorange,
-        backgroundcolor = textfieldbg,
-        width = 5em,
-        height = .8\baselineskip
-    ]{\emph{\textbf{Serial Number:}}}
+    \begin{center}
+        \noindent
+        \TextField[
+            name = camera.serialnumber,
+            maxlen = 9,
+            borderwidth = \bWidth,
+            bordercolor = borderorange,
+            backgroundcolor = textfieldbg,
+            width = 5em,
+            height = .8\baselineskip
+        ]{\emph{\textbf{Serial Number:}}}
+        \TextField[
+            name = camera.verificationcode,
+            maxlen = 6,
+            borderwidth = \bWidth,
+            bordercolor = borderorange,
+            backgroundcolor = textfieldbg,
+            width = 5em,
+            height = .8\baselineskip
+        ]{\emph{\textbf{Verification Code:}}}
+    \end{center}
 
-    \vspace{\sectionSpace}
+    \vspace{10px}
     \noindent
     \makeatletter
     \@for%
